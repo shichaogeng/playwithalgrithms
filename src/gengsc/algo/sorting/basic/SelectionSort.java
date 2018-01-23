@@ -1,4 +1,4 @@
-package gengsc.algo.util.sort;
+package gengsc.algo.sorting.basic;
 
 import gengsc.algo.util.SortTestHelper;
 
@@ -25,7 +25,7 @@ public class SelectionSort{
     public static void main(String[] args) {
         int n = 100000;
         Integer[] arr = SortTestHelper.generateRandomArray(n, 0, n);
-        SortTestHelper.testSort("gengsc.algo.util.sort.SelectionSort", arr);
+        SortTestHelper.testSort("SelectionSort", arr);
     }
 
 

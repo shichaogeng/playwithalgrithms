@@ -1,4 +1,4 @@
-package gengsc.algo.util.sort;
+package gengsc.algo.sorting.basic;
 
 import gengsc.algo.util.SortTestHelper;
 

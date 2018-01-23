@@ -1,10 +1,7 @@
 package gengsc.algo.util;
 
-import sun.applet.Main;
-
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Random;
 
 /**
@@ -123,8 +120,8 @@ public class SortTestHelper {
 //        Integer[] arr = SortTestHelper.generateRandomArray(n, 0, 3);
         Integer[] copy = Arrays.copyOf(arr, arr.length);
         Integer[] copy1 = Arrays.copyOf(copy, copy.length);
-        SortTestHelper.testSort("gengsc.algo.util.sort.InsertionSort", arr);
-        SortTestHelper.testSort("gengsc.algo.util.sort.BubbleSort", copy1);
-        SortTestHelper.testSort("gengsc.algo.util.sort.SelectionSort", copy);
+        SortTestHelper.testSort("InsertionSort", arr);
+        SortTestHelper.testSort("BubbleSort", copy1);
+        SortTestHelper.testSort("SelectionSort", copy);
     }
 }
