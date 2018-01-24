@@ -1,5 +1,9 @@
 package gengsc.algo.sorting.basic;
 
+import gengsc.algo.util.SortTestHelper;
+
+import java.util.Arrays;
+
 /**
  * @Description
  * @Author shichaogeng
@@ -12,12 +16,12 @@ public class ShellSort {
         while (gap >= 1) {
             //分组排序
             for (int i = gap; i < arr.length; i++) {
-                //比较同一组的
-                for (int j = i - gap; j >= 0; j -= gap) {
-                    for (int k = j; k < 1; k -= gap) {
-
-                    }
+                Comparable e = arr[i];
+                int j;
+                for (j = i; j >= gap && SortTestHelper.less(arr[j], arr[j - gap]); j -= gap) {
+                    arr[j] = arr[j - gap];
                 }
+                arr[j] = e;
             }
             gap = gap / 2;
         }
