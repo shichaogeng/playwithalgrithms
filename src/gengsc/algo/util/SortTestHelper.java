@@ -76,7 +76,7 @@ public class SortTestHelper {
 
             assert isSorted(arr);
 
-            printArray(arr);
+//            printArray(arr);
             System.out.println( sortClass.getSimpleName()+ " : " + (endTime-startTime) + "ms" );
         } catch (Exception e) {
             e.printStackTrace();
@@ -120,7 +120,7 @@ public class SortTestHelper {
 //        Integer[] arr = SortTestHelper.generateRandomArray(n, 0, 3);
         Integer[] copy = Arrays.copyOf(arr, arr.length);
         Integer[] copy1 = Arrays.copyOf(copy, copy.length);
-        SortTestHelper.testSort("InsertionSort", arr);
+        SortTestHelper.testSort("InsertionSort_1", arr);
         SortTestHelper.testSort("BubbleSort", copy1);
         SortTestHelper.testSort("SelectionSort", copy);
     }
