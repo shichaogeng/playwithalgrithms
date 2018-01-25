@@ -51,7 +51,9 @@ public class MergeSort {
         Integer[] arr = SortTestHelper.generateNearlyOrderedArray(n, 10);
 //        Integer[] arr = SortTestHelper.generateRandomArray(n, 0, n);
         Integer[] copy = Arrays.copyOf(arr, arr.length);
+        Integer[] copy2 = Arrays.copyOf(arr, arr.length);
         SortTestHelper.testSort("gengsc.algo.sorting.basic.InsertionSort", arr);
         SortTestHelper.testSort("gengsc.algo.sorting.advanced.MergeSort", copy);
+        SortTestHelper.testSort("gengsc.algo.sorting.basic.ShellSort", copy2);
     }
 }

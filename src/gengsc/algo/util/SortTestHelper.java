@@ -33,7 +33,7 @@ public class SortTestHelper {
      * 遍历打印
      * @param arr
      */
-    public static void printArray(Object[] arr) {
+    public static void printArray(Comparable[] arr) {
         System.out.println(Arrays.toString(arr));
     }
 
@@ -43,8 +43,8 @@ public class SortTestHelper {
      * @param i
      * @param j
      */
-    public static void swapArray(Object[] arr, int i, int j) {
-        Object temp = arr[i];
+    public static void swapArray(Comparable[] arr, int i, int j) {
+        Comparable temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
     }
