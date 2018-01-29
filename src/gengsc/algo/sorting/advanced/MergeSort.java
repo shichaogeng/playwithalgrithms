@@ -20,13 +20,13 @@ public class MergeSort {
 
     private static void sort(Comparable[] arr, int l, int r) {
         //当n小的时候,插入排序优于归并排序
-/*        if (l >= r) {
-            return;
-        }*/
-        if ((r - l) >= 5) {
-            InsertionSort_2.sort(arr, l, r);
+        if (l >= r) {
             return;
         }
+        /*if ((r - l) >= 5) {
+            InsertionSort_2.sort(arr, l, r);
+            return;
+        }*/
         int mid = l + (r - l) / 2;
         sort(arr, l, mid);
         sort(arr, mid + 1, r);
@@ -35,7 +35,7 @@ public class MergeSort {
 
     }
 
-    private static void mergeSort(Comparable[] arr, int l, int mid, int r) {
+    public static void mergeSort(Comparable[] arr, int l, int mid, int r) {
         Comparable[] aux = Arrays.copyOfRange(arr, l, r + 1);
         int i = l;
         int j = mid + 1;
@@ -44,7 +44,7 @@ public class MergeSort {
                 arr[k] = aux[j - l];
                 j++;
             } else if (j > r) {//右边遍历完
-                arr[k] = aux[i - l];
+                arr[k] = aux[i++ - l];
             } else if (SortTestHelper.less(aux[i - l], aux[j - l])) {
                 arr[k] = aux[i - l];
                 i++;

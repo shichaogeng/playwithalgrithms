@@ -74,7 +74,9 @@ public class SortTestHelper {
             method.invoke(null, params);
             long endTime = System.currentTimeMillis();
 
-            assert isSorted(arr);
+            boolean sorted = isSorted(arr);
+            assert sorted;
+            System.out.println(sortClass.getSimpleName()+"isSorted:"+ sorted);
 
 //            printArray(arr);
             System.out.println( sortClass.getSimpleName()+ " : " + (endTime-startTime) + "ms" );
@@ -97,6 +99,17 @@ public class SortTestHelper {
         return true;
     }
 
+    public static void main(String[] args) {
+        int n = 10000;
+        Integer[] arr = SortTestHelper.generateNearlyOrderedArray(n, 10);
+//        Integer[] arr = SortTestHelper.generateRandomArray(n, 0, 3);
+        Integer[] copy = Arrays.copyOf(arr, arr.length);
+        Integer[] copy1 = Arrays.copyOf(copy, copy.length);
+        SortTestHelper.testSort("InsertionSort_1", arr);
+        SortTestHelper.testSort("BubbleSort", copy1);
+        SortTestHelper.testSort("SelectionSort", copy);
+    }
+
     public static Integer[] generateNearlyOrderedArray(int n, int swapTimes) {
 
         Integer[] arr = new Integer[n];
@@ -112,16 +125,5 @@ public class SortTestHelper {
             swapArray(arr, posx, posy);
         }
         return arr;
-    }
-
-    public static void main(String[] args) {
-        int n = 10000;
-        Integer[] arr = SortTestHelper.generateNearlyOrderedArray(n, 10);
-//        Integer[] arr = SortTestHelper.generateRandomArray(n, 0, 3);
-        Integer[] copy = Arrays.copyOf(arr, arr.length);
-        Integer[] copy1 = Arrays.copyOf(copy, copy.length);
-        SortTestHelper.testSort("InsertionSort_1", arr);
-        SortTestHelper.testSort("BubbleSort", copy1);
-        SortTestHelper.testSort("SelectionSort", copy);
     }
 }
