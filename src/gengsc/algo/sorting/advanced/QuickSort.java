@@ -33,8 +33,7 @@ public class QuickSort {
         //当数组近乎有序时，会变成深度为N的右倾树，时间复杂度为O(N^2)
         //在这里使用随机算法 这样时间复杂度的期望值就为O(NlogN)
         //随机取一个索引
-        int randomIndex = Math.abs(new Random().nextInt()) % (r - l + 1) + l;
-        SortTestHelper.swapArray(arr, l, randomIndex);
+        SortTestHelper.swapArray(arr, l, new Random().nextInt(r - l) + l);
         Comparable v = arr[l];
         int p = l;
         for (int i = l+1; i <= r; i++) {
@@ -47,7 +46,7 @@ public class QuickSort {
     }
 
     public static void main(String[] args) {
-        int n = 10000;
+        int n = 100000;
         Integer[] arr = SortTestHelper.generateRandomArray(n, 0, 10);
 //        Integer[] arr = SortTestHelper.generateNearlyOrderedArray(n, 10);
         Integer[] copy = Arrays.copyOfRange(arr, 0, arr.length);

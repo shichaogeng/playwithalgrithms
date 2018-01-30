@@ -74,12 +74,12 @@ public class SortTestHelper {
             method.invoke(null, params);
             long endTime = System.currentTimeMillis();
 
-            boolean sorted = isSorted(arr);
+           /* boolean sorted = isSorted(arr);
             assert sorted;
-            System.out.println(sortClass.getSimpleName()+"isSorted:"+ sorted);
+            System.out.println("isSorted:"+ sorted);*/
 
 //            printArray(arr);
-            System.out.println( sortClass.getSimpleName()+ " : " + (endTime-startTime) + "ms" );
+            System.out.println(sortClass.getSimpleName() + ":" + isSorted(arr) + " : " + (endTime - startTime) + "ms");
         } catch (Exception e) {
             e.printStackTrace();
         }

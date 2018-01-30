@@ -22,6 +22,21 @@ public class MaxHeap<Item extends Comparable> {
         this.capacity = capacity;
     }
 
+    public MaxHeap(Item[] data) {
+
+        this.data = (Item[]) new Comparable[data.length + 1];
+        this.capacity = data.length;
+        this.count = data.length;
+        for (int i = 0; i < data.length; i++) {
+            this.data[i + 1] = data[i];
+        }
+
+        //headpify
+        for (int i = this.count/2; i >= 1 ; i--) {
+            shiftDown(i);
+        }
+    }
+
     public boolean isEmpty() {
         return count == 0;
     }
