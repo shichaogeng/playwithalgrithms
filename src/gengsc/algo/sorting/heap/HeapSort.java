@@ -1,4 +1,4 @@
-package gengsc.algo.heap;
+package gengsc.algo.sorting.heap;
 
 import gengsc.algo.util.SortTestHelper;
 

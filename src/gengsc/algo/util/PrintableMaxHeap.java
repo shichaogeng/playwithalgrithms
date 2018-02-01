@@ -1,6 +1,6 @@
 package gengsc.algo.util;
 
-import gengsc.algo.heap.MaxHeap;
+import gengsc.algo.sorting.heap.MaxHeap;
 
 /**
  * @Description
