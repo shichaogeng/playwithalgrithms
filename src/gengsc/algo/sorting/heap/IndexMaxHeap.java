@@ -110,12 +110,22 @@ public class IndexMaxHeap<Item extends Comparable> {
         reverse[index] = k;
     }
 
+    public boolean contain(int i) {
+        assert i >= 0 && i < capacity;
+        return reverse[i] != -1;
+    }
+
     public Item getItem(int index) {
+        assert this.contain(index);
         return data[index];
     }
 
     public void change(int i, Item newItem) {
+        assert this.contain(i);
         data[i] = newItem;
         //找到堆中的索引 shiftDown shiftUp
+        int j = this.reverse[i];
+        shiftDown(j);
+        shiftUp(j);
     }
 }
