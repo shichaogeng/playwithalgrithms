@@ -134,6 +134,8 @@ public class BST<Key extends Comparable<Key>, Value> {
         System.out.println(node.key);
     }
 
+
+
     // 测试二分搜索树和顺序查找表之间的性能差距
     // 二分搜索树的性能远远优于顺序查找表
     public static void main(String[] args) {
