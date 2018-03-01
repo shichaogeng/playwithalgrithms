@@ -2,14 +2,19 @@ package gengsc.algo.tree;
 
 import gengsc.algo.util.FileOperations;
 
+import java.awt.font.TextHitInfo;
+import java.awt.geom.RoundRectangle2D;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Vector;
 
 /**
  * @Description
  * @Author shichaogeng
- * @Create 2018-02-08 9:50
+ * @Create 2018-02-26 22:54
  */
 public class BST<Key extends Comparable<Key>, Value> {
+
     private Node root;
     private int count;
 
@@ -25,116 +30,196 @@ public class BST<Key extends Comparable<Key>, Value> {
         }
     }
 
-    public int size() {
+    public boolean isEmpty() {
+        return root == null;
+    }
+
+    public int count() {
         return this.count;
     }
 
-    public boolean isEmpty() {
-        return count == 0;
-    }
-
     public void insert(Key key, Value value) {
-        //如果有就替换
-        //没有就插入
         this.root = insert(this.root, key, value);
     }
 
-    private Node insert(Node node, Key key, Value value) {
-
-        if (node == null) {
-            this.count++;
-            return new Node(key, value);
-        }
-
-        if (key.compareTo(node.key) == 0) {
-            node.value = value;
-        } else if (key.compareTo(node.key) < 0) {
-            node.left = insert(node.left, key, value);
-        } else {
-            node.right = insert(node.right, key, value);
-        }
-        return node;
-    }
-
     public boolean contain(Key key) {
-        return contain(this.root, key);
-    }
-
-    private boolean contain(Node node, Key key) {
-
-        if (node == null) {
-            return false;
-        }
-
-        if (key.compareTo(node.key) == 0) {
-            return true;
-        } else if (key.compareTo(node.key) < 0) {
-            return contain(node.left, key);
-        } else {
-            return contain(node.right, key);
-        }
+        return contain(root, key);
     }
 
     public Value search(Key key) {
-        return search(this.root, key);
-    }
-
-    private Value search(Node node, Key key) {
-
-        if (node == null) {
-            return null;
-        }
-
-        if (key.compareTo(node.key) == 0) {
-            return node.value;
-        } else if (key.compareTo(node.key) < 0) {
-            return search(node.left, key);
-        } else {
-            return search(node.right, key);
-        }
-
+        return search(root, key);
     }
 
     public void preOrder() {
-        preOrder(this.root);
+        preOrder(root);
+    }
+
+    public void inOrder() {
+        inOrder(root);
+    }
+
+    public void postOrder() {
+        postOrder(root);
+    }
+
+    public void levelOrder() {
+        if (root == null) return;
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            Node node = queue.remove();
+            System.out.println(node.key);
+            if (node.left != null) queue.add(node.left);
+            if (node.right != null) queue.add(node.right);
+        }
+    }
+
+    public Key minimum() {
+        return minimum(root).key;
+    }
+
+    public Key maximum() {
+        return maximum(root).key;
+    }
+
+    public void removeMin() {
+        this.root = removeMin(root);
+    }
+
+    public void removeMax() {
+        this.root = removeMax(root);
+    }
+
+    public void remove(Key key) {
+        root=remove(root, key);
+    }
+
+    private Node remove(Node node, Key key) {
+        if (node == null) return null;
+
+        if (key.compareTo(node.key) > 0) {
+            node.right = remove(node.right, key);
+            return node;
+        } else if (key.compareTo(node.key) < 0) {
+            node.left = remove(node.left, key);
+            return node;
+        } else {
+            if (node.left == null) {
+                Node rightNode = node.right;
+                node = null;
+                count--;
+                return rightNode;
+            } else if (node.right == null) {
+                Node leftNode = node.left;
+                node = null;
+                count--;
+                return leftNode;
+            } else {
+                Node leftNode = node.left;
+                Node rigtNode = node.right;
+                node = null;
+                Node successor = minimum(rigtNode);
+                rigtNode = removeMin(rigtNode);
+                successor.right = rigtNode;
+                successor.left = leftNode;
+                return successor;
+            }
+        }
+
+    }
+
+    private Node removeMax(Node node) {
+        if (node.right == null) {
+            Node leftNode = node.left;
+            node = null;
+            count--;
+            return leftNode;
+        }
+        node.right = removeMax(node.right);
+        return node;
+    }
+
+    private Node removeMin(Node node) {
+        if (node.left == null) {
+            Node rightNode = node.right;
+            node = null;
+            count--;
+            return rightNode;
+        }
+        node.left = removeMin(node.left);
+        return node;
+    }
+
+    private Node maximum(Node node) {
+        if (node.right  == null) return node;
+        return maximum(node.right);
+    }
+
+    private Node minimum(Node node) {
+        if (node.left == null) return node;
+        return minimum(node.left);
+    }
+
+    private void postOrder(Node node) {
+        if (node == null) return;
+        postOrder(node.left);
+        postOrder(node.right);
+        System.out.println(node.key);
+    }
+
+    private void inOrder(Node node) {
+        if (node == null) return;
+        inOrder(node.left);
+        System.out.println(node.key);
+        inOrder(node.right);
     }
 
     private void preOrder(Node node) {
-        if (node == null) {
-            return;
-        }
+        if (node == null) return;
         System.out.println(node.key);
         preOrder(node.left);
         preOrder(node.right);
     }
 
-    public void inOrder() {
-        inOrder(this.root);
-    }
-
-    private void inOrder(Node node) {
-        if (node == null) {
-            return;
+    private Value search(Node node, Key key) {
+        if (node == null) return null;
+        if (key.compareTo(node.key) > 0) {
+            return search(node.right, key);
+        } else if (key.compareTo(node.key) < 0) {
+            return search(node.left, key);
+        } else {
+            return node.value;
         }
-        inOrder(node.left);
-        System.out.println(node.key);
-        inOrder(node.right);
+
     }
 
-    public void postOrder() {
-        postOrder(this.root);
-    }
-
-    private void postOrder(Node node) {
-        if (node == null) {
-            return;
+    private boolean contain(Node node, Key key) {
+        if (node == null) return false;
+        if (key.compareTo(node.key) > 0) {
+            return contain(node.right, key);
+        } else if (key.compareTo(node.key) < 0) {
+            return contain(node.left, key);
+        } else {
+            return true;
         }
-        inOrder(node.left);
-        inOrder(node.right);
-        System.out.println(node.key);
     }
 
+    private Node insert(Node node, Key key, Value value) {
+        if (node == null) {
+            this.count++;
+            return new Node(key, value);
+        }
 
+        if (key.compareTo(node.key) > 0) {
+            node.right = insert(node.right, key, value);
+        } else if (key.compareTo(node.key) < 0) {
+            node.left = insert(node.left, key, value);
+        } else {
+            node.value = value;
+        }
+
+        return node;
+    }
 
     // 测试二分搜索树和顺序查找表之间的性能差距
     // 二分搜索树的性能远远优于顺序查找表
